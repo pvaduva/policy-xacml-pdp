@@ -41,8 +41,10 @@
         <docker.skip>false</docker.skip>
         <docker.skip.build>false</docker.skip.build>
         <docker.skip.push>false</docker.skip.push>
-        <docker.pull.registry>nexus3.onap.org:10001</docker.pull.registry>
-        <docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
+        <docker.pull.registry>docker.io</docker.pull.registry>
+        <docker.push.registry>onapmulti</docker.push.registry>
+        <docker.user>onapmulti</docker.user>
+        <docker.pass>Secret1234</docker.pass>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
     </properties>
 
@@ -90,10 +92,13 @@
                     <apiVersion>1.23</apiVersion>
                     <pullRegistry>${docker.pull.registry}</pullRegistry>
                     <pushRegistry>${docker.push.registry}</pushRegistry>
-
+                   <authConfig>
+                       <username>${docker.user}</username>
+                       <password>${docker.pass}</password>
+                   </authConfig>
                     <images>
                         <image>
-                            <name>onap/policy-xacml-pdp</name>
+                            <name>policy-xacml-pdp-${os.arch}</name>
                             <build>
                                 <cleanup>try</cleanup>
                                 <dockerFile>Dockerfile</dockerFile>
